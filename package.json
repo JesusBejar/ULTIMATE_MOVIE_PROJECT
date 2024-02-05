@@ -1,0 +1,15 @@
+{
+  "name": "ultimate_movie_project",
+  "version": "1.0.0",
+  "description": "the BEST group API to pull movie data in the world - https://editor.swagger.io/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Israel Bejar, Adrian Lopez, Yolitzin Buendia, Herick Guillen, Benjamin Huerta",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.0.3",
+    "swagger": "^0.7.5"
+  }
+}
