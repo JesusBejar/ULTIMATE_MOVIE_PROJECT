@@ -5,7 +5,7 @@ const emptyDbError = () => {
 };
 
 const notFoundError = () => {
-  return createError(400, 'The ID does not correspond to any employee');
+  return createError(400, 'The ID is not found');
 };
 
 const internalServerError = () => {
