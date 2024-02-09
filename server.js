@@ -11,6 +11,15 @@ const errorHandler = require('./middleware/errors');
 
 const port = process.env.PORT || 3000;
 
+app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+    res.setHeader("Access-control-Allow-Origin", "*");
+    next();
+});
+
+app.use("/", require("./routes/index"));
+
 // include the error handler in the application
 app.use(errorHandler.errorHandler);
 
