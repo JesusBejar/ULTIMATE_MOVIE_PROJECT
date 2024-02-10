@@ -31,6 +31,14 @@ process.on('uncaughtException', (err, origin) => {
   );
 });
 
+// home page
+app.get('/', (req, res) => {
+  res.send(
+    `<h1>Welcome to the Team 4 Movies Api Home Page.</h1><br><br>` +
+      `<a href="/api-docs">Go to API Docs<a>`
+  );
+});
+
 mongodb.initDb((err) => {
   if (err) {
     console.log(err);
