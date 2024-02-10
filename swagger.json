@@ -5,20 +5,10 @@
     "description": "Movie Application Programming Interface",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "https://cse341-team4-project.onrender.com",
   "basePath": "/",
   "schemes": ["http", "https"],
   "paths": {
-    "/api-docs": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
     "/theaters/": {
       "get": {
         "tags": ["Theaters"],
