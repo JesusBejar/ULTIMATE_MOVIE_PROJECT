@@ -1,13 +1,14 @@
-const express = require("express");
-
+const express = require('express');
 const router = express.Router();
 
-// Here it is where the coltrolers and middleware should be in
-
-//
+const commentsController = require('../controllers/comments');
 //
 //
 //
 //
 
 // Routes for each request (CRUD)
+// get all
+router.get('/', commentsController.getAll);
+
+module.exports = router;

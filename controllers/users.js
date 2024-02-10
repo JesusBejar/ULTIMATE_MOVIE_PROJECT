@@ -1,5 +1,5 @@
 const mongodb = require('../data/data');
-const Object = require('mongodb').ObjectId;
+const ObjectId = require('mongodb').ObjectId;
 
 // This is the idea of how it should look the creation and
 // the information that we will handle.
@@ -10,6 +10,9 @@ const Object = require('mongodb').ObjectId;
 // "password": password
 
 const getAll = async (req, res) => {
+  //#swagger.tags=['Users']
+  //#swagger.description='Finds all users'
+  //#swagger.summary='Finds all users'
   const result = await mongodb
     .getDatabase()
     .db('sample_mflix')

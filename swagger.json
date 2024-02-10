@@ -3,27 +3,28 @@
   "info": {
     "title": "Movie API",
     "description": "Movie Application Programming Interface",
-    "version": "1.0.0",
-    "contact": {
-      "name": "CSE341 Group #4",
-      "email": "cse341.group4@byui.edu",
-      "url": "https://www.cse341.com/group4-movie"
-    }
+    "version": "1.0.0"
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": [
-    "http",
-    "https"
-  ],
+  "schemes": ["http", "https"],
   "paths": {
+    "/api-docs": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/theaters/": {
       "get": {
         "tags": ["Theaters"],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
+        "summary": "Finds all theaters",
+        "description": "Finds all theaters",
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "OK"
@@ -31,13 +32,62 @@
         }
       }
     },
+    "/theaters/{id}": {
+      "get": {
+        "tags": ["Theaters"],
+        "summary": "Finds one theater by its ID",
+        "description": "Finds a single theater by ID",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/users/": {
       "get": {
         "tags": ["Users"],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
+        "summary": "Finds all users",
+        "description": "Finds all users",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/comments/": {
+      "get": {
+        "tags": ["Comments"],
+        "summary": "Finds all comments",
+        "description": "Finds all comments",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/movies/": {
+      "get": {
+        "tags": ["Movies"],
+        "summary": "Finds all movies",
+        "description": "Finds all movies",
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "OK"

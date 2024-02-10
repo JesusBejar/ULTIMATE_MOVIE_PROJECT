@@ -1,13 +1,14 @@
-const express = require("express");
-
+const express = require('express');
 const router = express.Router();
 
-// Here it is where the coltrolers and middleware should be in
-
-//
+const moviesController = require('../controllers/movies');
 //
 //
 //
 //
 
 // Routes for each request (CRUD)
+// get all
+router.get('/', moviesController.getAll);
+
+module.exports = router;
