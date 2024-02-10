@@ -7,7 +7,7 @@
   },
   "host": "cse341-team4-project.onrender.com",
   "basePath": "/",
-  "schemes": ["http", "https"],
+  "schemes": ["https"],
   "paths": {
     "/theaters/": {
       "get": {
