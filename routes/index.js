@@ -1,9 +1,9 @@
-
 const router = require("express").Router();
 
-router.use("/users", require("./users"));
-router.use("/theaters", require("./theaters"));
 
+router.use("/", require("./swagger.js"));
 
+router.use("/theaters", require('./theaters'));
+router.use("/users", require('./users'));
 
 module.exports = router;

@@ -1,0 +1,49 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Movie API",
+    "description": "Movie Application Programming Interface",
+    "version": "1.0.0",
+    "contact": {
+      "name": "CSE341 Group #4",
+      "email": "cse341.group4@byui.edu",
+      "url": "https://www.cse341.com/group4-movie"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/theaters/": {
+      "get": {
+        "tags": ["Theaters"],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users/": {
+      "get": {
+        "tags": ["Users"],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}
