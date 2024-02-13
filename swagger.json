@@ -1,0 +1,89 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Movie API",
+    "description": "Movie Application Programming Interface",
+    "version": "1.0.0"
+  },
+  "host": "cse341-team4-project.onrender.com",
+  "basePath": "/",
+  "schemes": ["https"],
+  "paths": {
+    "/theaters/": {
+      "get": {
+        "tags": ["Theaters"],
+        "summary": "Finds all theaters",
+        "description": "Finds all theaters",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/theaters/{id}": {
+      "get": {
+        "tags": ["Theaters"],
+        "summary": "Finds one theater by its ID",
+        "description": "Finds a single theater by ID",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/users/": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Finds all users",
+        "description": "Finds all users",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/comments/": {
+      "get": {
+        "tags": ["Comments"],
+        "summary": "Finds all comments",
+        "description": "Finds all comments",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/movies/": {
+      "get": {
+        "tags": ["Movies"],
+        "summary": "Finds all movies",
+        "description": "Finds all movies",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}
