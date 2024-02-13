@@ -8,12 +8,6 @@ const {
   internalServerError,
 } = require('../middleware/errors');
 
-// This is the idea of how it should look the creation and
-// the information that we will handle.
-
-// "id": numeric
-// "name": string
-// "location": string
 
 const getAll = async (req, res) => {
   //#swagger.tags=['Theaters']
