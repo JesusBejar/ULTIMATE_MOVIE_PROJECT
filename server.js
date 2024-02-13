@@ -13,17 +13,24 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
+// Set up CORS headers
 app.use((req, res, next) => {
   res.setHeader('Access-control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-type, Accept, Z-key'
+  );
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
   next();
 });
 
+// Use routes
 app.use('/', require('./routes/index'));
 
-// include the error handler in the application
+// Error handling middleware
 app.use(errorHandler.errorHandler);
 
-// add an event handler to catch unhandled errors
+// Unhandled error handler
 process.on('uncaughtException', (err, origin) => {
   console.log(
     process.stderr.fd,
@@ -31,14 +38,62 @@ process.on('uncaughtException', (err, origin) => {
   );
 });
 
-// home page
+// Home page route
 app.get('/', (req, res) => {
   res.send(
     `<h1>Welcome to the Team 4 Movies Api Home Page.</h1><br><br>` +
-      `<a href="/api-docs">Go to API Docs<a>`
+    `<a href="/api-docs">Go to API Docs<a>`
   );
 });
 
+// OAuth related code
+// OAuth middleware
+app.use(session({
+  secret: 'theBestAROUND12345',
+  resave: false,
+  saveUninitialized: true,
+}));
+
+// Passport initialization
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Passport and OAuth routes
+app.use('/', require('./routes/index.js'));
+
+// Passport Github Strategy
+passport.use(new GithubStrategy({
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  callbackURL: process.env.CALLBACK_URL
+}, (acessToken, refreshToken, profile, done) => {
+  return done(null, profile);
+}));
+
+// Serialize and Deserialize User
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
+
+// Home page route for logged-in user
+app.get('/', (req, res) => {
+  res.send(req.session.user !== undefined ? `Logged in as ${req.session.user.displayName}` : 'Logged Out');
+});
+
+// Github callback route
+app.get('/github/callback', passport.authenticate('github', {
+  failureRedirect: '/api-docs',
+  session: false
+}), (req, res) => {
+  req.session.user = req.user;
+  res.redirect('/');
+});
+
+// Start MongoDB
 mongodb.initDb((err) => {
   if (err) {
     console.log(err);
