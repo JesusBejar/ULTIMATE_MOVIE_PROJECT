@@ -1,19 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const theaterController = require('../controllers/theaters');
+const validator = require('../middleware/validate');
 
-// Here it is where the coltrolers and middleware should be in
-
-const theatersController = require('../controllers/theaters');
-//
-//
-//
-//
-
-// Routes for each request (CRUD)
-// get all
-router.get('/', theatersController.getAll);
-
-//get one by ID
-router.get('/:id', theatersController.getById);
+// Routes for theaters
+router.get('/', theaterController.getAll);
+router.get('/:id', theaterController.getSingle);
+router.post('/', validator, theaterController.createTheater);
+router.put('/:id', validator, theaterController.updateTheater);
+router.delete('/:id', theaterController.deleteTheater);
 
 module.exports = router;
+
