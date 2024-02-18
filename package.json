@@ -4,7 +4,7 @@
   "description": "the BEST group API to pull movie data in the world - https://editor.swagger.io/",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest && exit 1",
     "swagger": "node ./swagger.js",
     "start": "nodemon server.js"
   },
@@ -16,10 +16,14 @@
     "dotenv": "^16.4.1",
     "express-session": "^1.18.0",
     "http-errors": "^2.0.0",
+    "jest": "^29.7.0",
+    "jest-express": "^1.12.0",
     "mongodb": "^6.3.0",
     "nodemon": "^3.0.3",
     "passport": "^0.7.0",
     "passport-github2": "^0.1.12",
+    "sinon-express-mock": "^2.2.1",
+    "supertest": "^6.3.4",
     "swagger": "^0.0.1",
     "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.0",
