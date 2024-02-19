@@ -1,46 +1,141 @@
   const mongodb = require('../data/data');
 const ObjectId = require('mongodb').ObjectId;
 
-const getAll = async (req, res) => {
+const getAllUsers = async (req, res) => {
   //#swagger.tags=['Users']
   //#swagger.description='Finds all users'
   //#swagger.summary='Finds all users'
-  const result = await mongodb
-    .getDatabase()
-    .db('sample_mflix')
-    .collection('users')
-    .find();
-  result.toArray().then((users) => {
-    res.setHeader('Content-type', 'application/json');
-    res.status(200).json(users);
-  });
-};
-
-const getById = async (req, res, next) => {
-
   try {
-    if (!ObjectId.isValid(req.params.id)) {
-      res.status(400).json('Must use a valid id to get theater information.');
-      return;
-    }
-
-    const departmentID = new ObjectId(req.params.id);
     const result = await mongodb
       .getDatabase()
       .db('sample_mflix')
       .collection('users')
-      .find({ _id: departmentID })
+      .find()
       .toArray();
 
-    if (!result || result.length === 0) {
-      throw notFoundError();
+    res.setHeader('Content-type', 'application/json');
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getSingleUser = async (req, res, next) => {
+  //#swagger.tags=['Users']
+  //#swagger.description='Finds a single user'
+  //#swagger.summary='Finds a single user'
+  try {
+    if (!ObjectId.isValid(req.params.id)) {
+      res.status(400).json('Must use a valid id to get user information.');
+      return;
+    }
+
+    const userId = new ObjectId(req.params.id);
+    const result = await mongodb
+      .getDatabase()
+      .db('sample_mflix')
+      .collection('users')
+      .findOne({ _id: userId });
+
+    if (!result) {
+      res.status(404).json('User not found');
+      return;
     }
 
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(result[0]);
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { getAll, getById };
+const createUser = async (req, res) => {
+  //#swagger.tags=['Users']
+  //#swagger.description='Create a new user'
+  //#swagger.summary='Create a new user'
+  try {
+    const user = {
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+    };
+
+    const response = await mongodb
+      .getDatabase()
+      .db('sample_mflix')
+      .collection('users')
+      .insertOne(user);
+
+    res.status(201).json({ message: 'User created successfully', user: response.ops[0] });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const updateUser = async (req, res) => {
+  //#swagger.tags=['Users']
+  //#swagger.description='Update a user in the database'
+  //#swagger.summary='Update a user'
+  try {
+    if (!ObjectId.isValid(req.params.id)) {
+      res.status(400).json('Must use a valid user id to update user information.');
+      return;
+    }
+
+    const userId = new ObjectId(req.params.id);
+    const updatedUser = {
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+    };
+
+    const response = await mongodb
+      .getDatabase()
+      .db('sample_mflix')
+      .collection('users')
+      .updateOne({ _id: userId }, { $set: updatedUser });
+
+    if (response.modifiedCount > 0) {
+      res.status(200).json('User information updated successfully');
+    } else {
+      res.status(404).json('User not found');
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const deleteUser = async (req, res) => {
+  //#swagger.tags=['Users']
+  //#swagger.description='Deletes a user from the database'
+  //#swagger.summary='Deletes a user'
+  try {
+    if (!ObjectId.isValid(req.params.id)) {
+      res.status(400).json('Must use a valid user id to delete a user.');
+      return;
+    }
+
+    const userId = new ObjectId(req.params.id);
+    const response = await mongodb
+      .getDatabase()
+      .db('sample_mflix')
+      .collection('users')
+      .deleteOne({ _id: userId });
+
+    if (response.deletedCount > 0) {
+      res.status(200).json('User deleted successfully');
+    } else {
+      res.status(404).json('User not found');
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  getAllUsers,
+  getSingleUser,
+  createUser,
+  updateUser,
+  deleteUser,
+};
