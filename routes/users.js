@@ -11,5 +11,6 @@ const userController = require('../controllers/users');
 
 // Routes for each request (CRUD)
 router.get('/', userController.getAll);
+router.get('/:id', userController.getById);
 
 module.exports = router;

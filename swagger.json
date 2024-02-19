@@ -5,16 +5,33 @@
     "description": "Movie Application Programming Interface",
     "version": "1.0.0"
   },
-  "host": "cse341-team4-project.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": [
+    "http",
+    "https"
+  ],
   "paths": {
+    "/api-docs": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/theaters/": {
       "get": {
-        "tags": ["Theaters"],
+        "tags": [
+          "Theaters"
+        ],
         "summary": "Finds all theaters",
         "description": "Finds all theaters",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -24,10 +41,14 @@
     },
     "/theaters/{id}": {
       "get": {
-        "tags": ["Theaters"],
+        "tags": [
+          "Theaters"
+        ],
         "summary": "Finds one theater by its ID",
         "description": "Finds a single theater by ID",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -48,10 +69,14 @@
     },
     "/users/": {
       "get": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "summary": "Finds all users",
         "description": "Finds all users",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -59,12 +84,40 @@
         }
       }
     },
+    "/users/{id}": {
+      "get": {
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/comments/": {
       "get": {
-        "tags": ["Comments"],
+        "tags": [
+          "Comments"
+        ],
         "summary": "Finds all comments",
         "description": "Finds all comments",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -74,10 +127,14 @@
     },
     "/movies/": {
       "get": {
-        "tags": ["Movies"],
+        "tags": [
+          "Movies"
+        ],
         "summary": "Finds all movies",
         "description": "Finds all movies",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK"
