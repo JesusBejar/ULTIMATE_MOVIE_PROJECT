@@ -1,4 +1,4 @@
-  const mongodb = require('../data/data');
+const mongodb = require('../data/data');
 const ObjectId = require('mongodb').ObjectId;
 
 const getAllUsers = async (req, res) => {
@@ -53,20 +53,25 @@ const createUser = async (req, res) => {
   //#swagger.tags=['Users']
   //#swagger.description='Create a new user'
   //#swagger.summary='Create a new user'
-  try {
-    const user = {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-    };
 
+  const user = {
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password
+  };
+
+  try {
     const response = await mongodb
       .getDatabase()
       .db('sample_mflix')
       .collection('users')
       .insertOne(user);
 
-    res.status(201).json({ message: 'User created successfully', user: response.ops[0] });
+    if (response.acknowledged > 0) {
+      res.status(201).json('User created successfully');
+    } else {
+      res.status(500).json({ error: 'User creation failed' });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -96,7 +101,7 @@ const updateUser = async (req, res) => {
       .updateOne({ _id: userId }, { $set: updatedUser });
 
     if (response.modifiedCount > 0) {
-      res.status(200).json('User information updated successfully');
+      res.status(200).json({ message: 'User information updated successfully' });
     } else {
       res.status(404).json('User not found');
     }
@@ -120,7 +125,7 @@ const deleteUser = async (req, res) => {
       .getDatabase()
       .db('sample_mflix')
       .collection('users')
-      .deleteOne({ _id: userId });
+      .deleteOne({ _id: userId }, true);
 
     if (response.deletedCount > 0) {
       res.status(200).json('User deleted successfully');
@@ -128,7 +133,7 @@ const deleteUser = async (req, res) => {
       res.status(404).json('User not found');
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json(response.error || "Some error occurred. Try again.");
   }
 };
 

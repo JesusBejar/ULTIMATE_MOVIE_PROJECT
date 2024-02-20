@@ -17,9 +17,9 @@ const getAll = async (req, res) => {
 };
 
 const getSingle = async (req, res, next) => {
-  //#swagger.tags=['Users']
-  //#swagger.description='Finds a single user'
-  //#swagger.summary='Finds a single user'
+  //#swagger.tags=['Movies']
+  //#swagger.description='Finds a single movie'
+  //#swagger.summary='Finds a single movie'
   try {
     if (!ObjectId.isValid(req.params.id)) {
       res.status(400).json('Must use a valid id to get movie information.');
@@ -46,9 +46,9 @@ const getSingle = async (req, res, next) => {
 };
 
 const create = async (req, res) => {
-  //#swagger.tags=['Users']
-  //#swagger.description='Create a new user'
-  //#swagger.summary='Create a new user'
+  //#swagger.tags=['Movies']
+  //#swagger.description='Create a new movie'
+  //#swagger.summary='Create a new movie'
   try {
     const movie = {
       id: req.body.id,
@@ -79,9 +79,9 @@ const create = async (req, res) => {
 
 
 const update = async (req, res) => {
-  //#swagger.tags=['Users']
-  //#swagger.description='Update a user in the database'
-  //#swagger.summary='Update a user'
+  //#swagger.tags=['Movies']
+  //#swagger.description='Update a movie in the database'
+  //#swagger.summary='Update a movie'
   try {
     if (!ObjectId.isValid(req.params.id)) {
       res.status(400).json('Must use a valid movie id to update movie information.');
@@ -121,9 +121,9 @@ const update = async (req, res) => {
 };
 
 const deleteMovies = async (req, res) => {
-  //#swagger.tags=['Users']
-  //#swagger.description='Deletes a user from the database'
-  //#swagger.summary='Deletes a user'
+  //#swagger.tags=['Movies']
+  //#swagger.description='Deletes a movie from the database'
+  //#swagger.summary='Deletes a movie'
   try {
     if (!ObjectId.isValid(req.params.id)) {
       res.status(400).json('Must use a valid movie id to delete a movie.');
