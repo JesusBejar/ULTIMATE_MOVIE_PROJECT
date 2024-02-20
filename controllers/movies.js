@@ -1,15 +1,6 @@
 const mongodb = require('../data/data');
 const ObjectId = require('mongodb').ObjectId;
 
-// This is the idea of how it should look the creation and
-// the information that we will handle.
-
-// "id": numeric
-// "title": string
-// "description": string
-// "release_date": numeric
-// "duration": numeric
-
 const getAll = async (req, res) => {
   //#swagger.tags=['Movies']
   //#swagger.description='Finds all movies'
