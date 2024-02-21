@@ -8,9 +8,6 @@ router.use('/users', require('./users'));
 router.use('/comments', require('./comments'));
 router.use('/movies', require('./movies'));
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 // login
 router.get(
   '/login',
