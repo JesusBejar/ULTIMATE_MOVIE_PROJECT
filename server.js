@@ -30,22 +30,6 @@ app.use('/', require('./routes/index'));
 // Error handling middleware
 app.use(errorHandler.errorHandler);
 
-// Unhandled error handler
-process.on('uncaughtException', (err, origin) => {
-  console.log(
-    process.stderr.fd,
-    `Caught exception: ${err}\n` + `Exception origin: ${origin}`
-  );
-});
-
-// Home page route
-app.get('/', (req, res) => {
-  res.send(
-    `<h1>Welcome to the Team 4 Movies Api Home Page.</h1><br><br>` +
-    `<a href="/api-docs">Go to API Docs<a>`
-  );
-});
-
 // OAuth related code
 // OAuth middleware
 app.use(session({
@@ -79,10 +63,17 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-// Home page route for logged-in user
+// Home page route for logged-in user and user home.
 app.get('/', (req, res) => {
-  res.send(req.session.user !== undefined ? `Logged in as ${req.session.user.displayName}` : 'Logged Out');
+  const message = req.session.user !== undefined ? `Logged in as ${req.session.user.displayName}` : 'Logged Out';
+  res.send(
+    `<h1>Welcome to the Team 4 Movies Api Home Page.</h1><br><br>` +
+    `<a href="/api-docs">Go to API Docs<a>` +
+    `<h2>${message}</h2>`
+  );
 });
+
+
 
 // Github callback route
 app.get('/github/callback', passport.authenticate('github', {
@@ -91,6 +82,14 @@ app.get('/github/callback', passport.authenticate('github', {
 }), (req, res) => {
   req.session.user = req.user;
   res.redirect('/');
+});
+
+// Unhandled error handler
+process.on('uncaughtException', (err, origin) => {
+  console.log(
+    process.stderr.fd,
+    `Caught exception: ${err}\n` + `Exception origin: ${origin}`
+  );
 });
 
 // Start MongoDB
