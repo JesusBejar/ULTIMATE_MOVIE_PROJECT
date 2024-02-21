@@ -54,18 +54,47 @@ const createMovie = async (req, res) => {
   //#swagger.summary='Create a new movie'
   try {
     const movie = {
-      id: req.body.id,
       plot: req.body.plot,
       genres: req.body.genres,
-      runtime: req.body.genres,
-      num_mflix_comments: req.body.num_mflix_comments,
+      runtime: req.body.runtime,
+      cast: req.body.cast,
+      poster: req.body.poster,
       title: req.body.title,
       fullplot: req.body.fullplot,
       languages: req.body.languages,
-      fullplot: req.body.fullplot,
       released: req.body.released,
       directors: req.body.directors,
-      fullplot: req.body.fullplot,
+      rated: req.body.rated,
+      awards: {
+        wins: req.body.awards.wins,
+        nominations: req.body.awards.nominations,
+        text: req.body.awards.text,
+        lastupdated: req.body.awards.lastupdated,
+      },
+      year: req.body.year,
+      imdb: {
+        rating: req.body.imdb.rating,
+        votes: req.body.imdb.votes,
+        id: req.body.imdb.id,
+      },
+      countries: req.body.countries,
+      type: req.body.type,
+      tomatoes: {
+        viewer: {
+          rating: req.body.tomatoes.viewer.rating,
+          numReviews: req.body.tomatoes.viewer.numReviews,
+          meter: req.body.tomatoes.viewer.meter,
+          fresh: req.body.tomatoes.viewer.fresh,
+        },
+        critic: {
+          rating: req.body.tomatoes.critic.rating,
+          numReviews: req.body.tomatoes.critic.numReviews,
+          meter: req.body.tomatoes.critic.meter,
+          rotten: req.body.tomatoes.critic.rotten,
+          lastUpdated: req.body.tomatoes.critic.lastUpdated,
+        },
+      },
+      num_mflix_comments: req.body.num_mflix_comments,
     };
 
     const response = await mongodb
@@ -74,12 +103,13 @@ const createMovie = async (req, res) => {
       .collection('movies')
       .insertOne(movie);
 
-    res.status(201).json({ message: 'Movie created successfully', movie: response.ops[0] });
+    res
+      .status(201)
+      .json({ message: 'Movie created successfully', movie: response.ops[0] });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 const updateMovie = async (req, res) => {
   //#swagger.tags=['Movies']
@@ -87,24 +117,55 @@ const updateMovie = async (req, res) => {
   //#swagger.summary='Update a movie'
   try {
     if (!ObjectId.isValid(req.params.id)) {
-      res.status(400).json('Must use a valid movie id to update movie information.');
+      res
+        .status(400)
+        .json('Must use a valid movie id to update movie information.');
       return;
     }
 
     const movieId = new ObjectId(req.params.id);
     const update = {
-      id: req.body.id,
       plot: req.body.plot,
       genres: req.body.genres,
-      runtime: req.body.genres,
-      num_mflix_comments: req.body.num_mflix_comments,
+      runtime: req.body.runtime,
+      cast: req.body.cast,
+      poster: req.body.poster,
       title: req.body.title,
       fullplot: req.body.fullplot,
       languages: req.body.languages,
-      fullplot: req.body.fullplot,
       released: req.body.released,
       directors: req.body.directors,
-      fullplot: req.body.fullplot,
+      rated: req.body.rated,
+      awards: {
+        wins: req.body.awards.wins,
+        nominations: req.body.awards.nominations,
+        text: req.body.awards.text,
+        lastupdated: req.body.awards.lastupdated,
+      },
+      year: req.body.year,
+      imdb: {
+        rating: req.body.imdb.rating,
+        votes: req.body.imdb.votes,
+        id: req.body.imdb.id,
+      },
+      countries: req.body.countries,
+      type: req.body.type,
+      tomatoes: {
+        viewer: {
+          rating: req.body.tomatoes.viewer.rating,
+          numReviews: req.body.tomatoes.viewer.numReviews,
+          meter: req.body.tomatoes.viewer.meter,
+          fresh: req.body.tomatoes.viewer.fresh,
+        },
+        critic: {
+          rating: req.body.tomatoes.critic.rating,
+          numReviews: req.body.tomatoes.critic.numReviews,
+          meter: req.body.tomatoes.critic.meter,
+          rotten: req.body.tomatoes.critic.rotten,
+          lastUpdated: req.body.tomatoes.critic.lastUpdated,
+        },
+      },
+      num_mflix_comments: req.body.num_mflix_comments,
     };
 
     const response = await mongodb
@@ -150,7 +211,7 @@ const deleteMovie = async (req, res) => {
   }
 };
 
-module.exports = { 
+module.exports = {
   getAll,
   getSingleMovie,
   createMovie,
