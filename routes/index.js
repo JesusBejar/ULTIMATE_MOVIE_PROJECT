@@ -8,16 +8,13 @@ router.use('/users', require('./users'));
 router.use('/comments', require('./comments'));
 router.use('/movies', require('./movies'));
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 // login
-router.get(
+router.use(
   '/login',
   passport.authenticate('github', (req, res) => {})
 );
 // logout
-router.get('/logout', function (req, res, next) {
+router.get('/logout', function (req, res) {
   req.logout(function (err) {
     if (err) {
       return next(err);

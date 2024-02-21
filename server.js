@@ -12,7 +12,18 @@ const errorHandler = require('./middleware/errors');
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+// OAuth related code
+// OAuth middleware
+app.use(
+  session({
+    secret: 'theBestAROUND12345',
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
+app.use(passport.initialize());
+app.use(passport.session());
 // Set up CORS headers
 app.use((req, res, next) => {
   res.setHeader('Access-control-Allow-Origin', '*');
@@ -30,22 +41,12 @@ app.use((req, res, next) => {
 // Use routes
 app.use('/', require('./routes/index'));
 
+
+
 // Error handling middleware
 app.use(errorHandler.errorHandler);
 
-// OAuth related code
-// OAuth middleware
-app.use(
-  session({
-    secret: 'theBestAROUND12345',
-    resave: false,
-    saveUninitialized: true,
-  })
-);
 
-// Passport initialization
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Passport and OAuth routes
 app.use('/', require('./routes/index.js'));
