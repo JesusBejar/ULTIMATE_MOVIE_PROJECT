@@ -6,7 +6,6 @@ const { isAuthenticated } = require('../middleware/authenticate');
 
 // Routes for each request (CRUD)
 // get all
-router.get('/', moviesController.getAll);
 router.get('/:id', moviesController.getSingle);
 router.post('/', isAuthenticated, validator, moviesController.create);
 router.put('/:id', isAuthenticated, validator, moviesController.update);

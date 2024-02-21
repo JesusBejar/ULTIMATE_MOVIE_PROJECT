@@ -3,20 +3,23 @@ const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async (req, res) => {
   //#swagger.tags=['Movies']
-  //#swagger.description='Finds all movies'
-  //#swagger.summary='Finds all movies'
-  const result = await mongodb
-    .getDatabase()
-    .db('sample_mflix')
-    .collection('movies')
-    .find();
-  result.toArray().then((movies) => {
-    res.setHeader('Content-type', 'application/json');
-    res.status(200).json(movies);
-  });
+  //#swagger.description='Finds all the movies'
+  //#swagger.summary='Finds all the movies'
+  try {
+    const result = await mongodb
+      .getDatabase()
+      .db('sample_mflix')
+      .collection('movies')
+      .find()
+      .toArray();
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
-const getSingle = async (req, res, next) => {
+const getSingleMovie = async (req, res, next) => {
   //#swagger.tags=['Movies']
   //#swagger.description='Finds a single movie'
   //#swagger.summary='Finds a single movie'
@@ -45,7 +48,7 @@ const getSingle = async (req, res, next) => {
   }
 };
 
-const create = async (req, res) => {
+const createMovie = async (req, res) => {
   //#swagger.tags=['Movies']
   //#swagger.description='Create a new movie'
   //#swagger.summary='Create a new movie'
@@ -78,7 +81,7 @@ const create = async (req, res) => {
 };
 
 
-const update = async (req, res) => {
+const updateMovie = async (req, res) => {
   //#swagger.tags=['Movies']
   //#swagger.description='Update a movie in the database'
   //#swagger.summary='Update a movie'
@@ -120,7 +123,7 @@ const update = async (req, res) => {
   }
 };
 
-const deleteMovies = async (req, res) => {
+const deleteMovie = async (req, res) => {
   //#swagger.tags=['Movies']
   //#swagger.description='Deletes a movie from the database'
   //#swagger.summary='Deletes a movie'
@@ -149,8 +152,8 @@ const deleteMovies = async (req, res) => {
 
 module.exports = { 
   getAll,
-  getSingle,
-  create,
-  update,
-  deleteMovies,
+  getSingleMovie,
+  createMovie,
+  updateMovie,
+  deleteMovie,
 };
