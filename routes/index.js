@@ -12,12 +12,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // login
-router.use(
+router.get(
   '/login',
   passport.authenticate('github', (req, res) => {})
 );
 // logout
-router.use('/logout', function (req, res, next) {
+router.get('/logout', function (req, res, next) {
   req.logout(function (err) {
     if (err) {
       return next(err);
