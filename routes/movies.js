@@ -13,6 +13,6 @@ const { isAuthenticated } = require('../middleware/authenticate');
 router.get('/:id', moviesController.getSingle);
 router.post('/', isAuthenticated, validator, moviesController.create);
 router.put('/:id', isAuthenticated, validator, moviesController.update);
-router.delete('/:id', moviesController.deleteMovies);
+router.delete('/:id', isAuthenticated, moviesController.deleteMovies);
 
 module.exports = router;
