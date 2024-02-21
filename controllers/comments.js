@@ -22,11 +22,11 @@ const getSingle = async (req, res, next) => {
   //#swagger.summary='Finds one comment by its ID'
   try {
     if (!ObjectId.isValid(req.params.id)) {
-      res.status(400).json('Must use a valid id to get theater information.');
+      res.status(400).json('Must use a valid id to get comment information.');
       return;
     }
 
-    const departmentID = new ObjectId(req.params.id);
+    const commentId = new ObjectId(req.params.id);
     const result = await mongodb
       .getDatabase()
       .db('sample_mflix')
@@ -34,12 +34,14 @@ const getSingle = async (req, res, next) => {
       .find({ _id: departmentID })
       .toArray();
 
-    if (!result || result.length === 0) {
-      throw notFoundError();
+
+    if (!result) {
+      res.status(404).json('Comment not found');
+      return;
     }
 
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(result[0]);
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
@@ -54,18 +56,20 @@ const createComment = async (req, res) => {
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
+
     };
 
     const response = await mongodb
       .getDatabase()
       .db('sample_mflix')
-      .collection('comments')
+      .collection('commets')
       .insertOne(comment);
 
-    res.status(201).json({
-      message: 'Comment created successfully',
-      comment: response.ops[0],
-    });
+    if (response.acknowledged > 0) {
+      res.status(201).json({ message: 'Comment created successfully' });
+    } else {
+      res.status(500).json({ error: 'Comment creation failed' });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
