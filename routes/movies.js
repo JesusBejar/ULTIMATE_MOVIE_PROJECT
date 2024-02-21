@@ -6,9 +6,9 @@ const { isAuthenticated } = require('../middleware/authenticate');
 
 // Routes for each request (CRUD)
 // get all
-router.get('/:id', moviesController.getSingle);
-router.post('/', isAuthenticated, validator, moviesController.create);
-router.put('/:id', isAuthenticated, validator, moviesController.update);
-router.delete('/:id', moviesController.deleteMovies);
+router.get('/:id', moviesController.getSingleMovie);
+router.post('/', isAuthenticated, validator, moviesController.createMovie);
+router.put('/:id', isAuthenticated, validator, moviesController.updateMovie);
+router.delete('/:id', moviesController.deleteMovie);
 
 module.exports = router;
