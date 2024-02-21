@@ -1,12 +1,12 @@
-const swaggerAutogen = require("swagger-autogen")();
+const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
-    info: {
-        title: "Movie API",
-        description: "Movie Application Programming Interface"
-    },
-    host: "localhost:3000",
-    schemes: ["http", "https"],
+  info: {
+    title: 'Movie API',
+    description: 'Movie Application Programming Interface',
+  },
+  host: 'cse341-team4-project.onrender.com',
+  schemes: ['https'],
 };
 
 const outputFile = './swagger.json';
