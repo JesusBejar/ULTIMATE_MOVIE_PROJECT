@@ -6,6 +6,7 @@ const moviesController = require('../controllers/movies');
 //
 //
 //
+const { isAuthenticated } = require('../middleware/authenticate');
 
 // Routes for each request (CRUD)
 // get all

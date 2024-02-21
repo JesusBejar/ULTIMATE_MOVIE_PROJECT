@@ -6,6 +6,7 @@ const commentsController = require('../controllers/comments');
 //
 //
 //
+const { isAuthenticated } = require('../middleware/authenticate');
 
 // Routes for each request (CRUD)
 // get all
