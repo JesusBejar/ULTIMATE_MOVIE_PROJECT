@@ -55,7 +55,8 @@ const createComment = async (req, res) => {
     const comment = {
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password,
+      movie_id: req.body.movie_id,
+      text: req.body.text,
 
     };
 
@@ -91,7 +92,8 @@ const updateComment = async (req, res) => {
     const updatedComment = {
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password,
+      movie_id: req.body.movie_id,
+      text: req.body.text,
     };
 
     const response = await mongodb
