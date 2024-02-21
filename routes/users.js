@@ -8,8 +8,8 @@ const { isAuthenticated } = require('../middleware/authenticate');
 // Routes for each request (CRUD)
 router.get('/', userController.getAllUsers);
 router.get('/:id', userController.getSingleUser);
-router.post('/', isAuthenticated, validator, userController.createUser);
-router.put('/:id', isAuthenticated, validator, userController.updateUser);
+router.post('/', isAuthenticated, validator.validateUserData, userController.createUser);
+router.put('/:id', isAuthenticated, validator.validateUserData, userController.updateUser);
 router.delete('/:id', userController.deleteUser);
 
 module.exports = router;
