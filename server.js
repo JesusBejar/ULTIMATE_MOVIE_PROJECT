@@ -77,8 +77,9 @@ passport.deserializeUser((user, done) => {
 app.get('/', (req, res) => {
   const message =
     req.session.user !== undefined
-      ? `Logged in as ${req.session.user.displayName}`
-      : 'Logged Out';
+      ? `Logged in as ${req.session.user.displayName}<br><br>` +
+        `<a href="/logout">Logout<a>`
+      : 'Logged Out<br>' + `<a href="/login">Login with Github<a>`;
   res.send(
     `<h1>Welcome to the Team 4 Movies Api Home Page.</h1><br><br>` +
       `<a href="/api-docs">Go to API Docs<a>` +
