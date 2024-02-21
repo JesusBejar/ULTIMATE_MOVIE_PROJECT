@@ -11,7 +11,7 @@ router.use('/movies', require('./movies'));
 // login
 router.get(
   '/login',
-  passport.authenticate('github', (req, res) => {})
+  passport.authenticate('github'), (req, res) => {}
 );
 // logout
 router.get('/logout', function (req, res, next) {
